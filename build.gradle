@@ -1,0 +1,17 @@
+apply from: 'dependencies.gradle'
+
+buildscript {
+    apply from: 'dependencies.gradle'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        def buildscriptDeps = rootProject.ext.buildscriptDeps
+        classpath buildscriptDeps.gradle
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
