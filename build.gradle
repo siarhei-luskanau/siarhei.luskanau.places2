@@ -1,7 +1,7 @@
-apply from: 'dependencies.gradle'
+apply from: "$rootDir/dependencies.gradle"
 
 buildscript {
-    apply from: 'dependencies.gradle'
+    apply from: "$rootDir/dependencies.gradle"
     repositories {
         google()
         jcenter()
@@ -10,6 +10,10 @@ buildscript {
         def buildscriptDeps = rootProject.ext.buildscriptDeps
         classpath buildscriptDeps.gradle
     }
+}
+
+allprojects {
+    apply from: "$rootDir/ktlint.gradle"
 }
 
 task clean(type: Delete) {
