@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_place_list_fragment"
+        android:id="@+id/nav_place_list"
         android:title="place_list_fragment"/>
     <item
         android:id="@+id/nav_github"

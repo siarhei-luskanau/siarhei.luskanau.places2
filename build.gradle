@@ -7,10 +7,20 @@ buildscript {
         targetSdkVersion = 28
 
         // App dependencies
-        kotlinVersion = '1.3.20'
-        navigationVersion = '1.0.0-alpha11'
-        materialVersion = '1.1.0-alpha02'
+        kotlinVersion = '1.3.21'
+        navigationVersion = '1.0.0-beta01'
+        materialVersion = '1.1.0-alpha03'
         constraintlayoutVersion = '2.0.0-alpha3'
+
+        //Testing
+        mockitoKotlinVersion = '2.1.0'
+        spekVersion = '2.0.0'
+
+        appDependencies = [
+                kotlinStdlib : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
+                kotlinTest   : "org.jetbrains.kotlin:kotlin-test:$kotlinVersion",
+                kotlinReflect: "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
+        ]
     }
 
     repositories {
@@ -19,9 +29,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
+        classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.3.2.0'
     }
 }
 

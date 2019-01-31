@@ -2,53 +2,53 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/nav_place_list_fragment">
+    app:startDestination="@+id/nav_place_list">
 
     <fragment
-        android:id="@+id/nav_place_list_fragment"
+        android:id="@+id/nav_place_list"
         android:name="siarhei.luskanau.places2.placelist.PlaceListFragment"
-        android:label="PlaceListFragment"
         tools:layout="@layout/fragment_place_list">
 
 
         <action
             android:id="@+id/action_place_list_to_details"
-            app:destination="@id/place_details_fragment" />
+            app:destination="@id/nav_place_details" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/place_details_fragment"
+        android:id="@+id/nav_place_details"
         android:name="siarhei.luskanau.places2.placedetails.PlaceDetailsFragment"
-        android:label="PlaceDetailsFragment"
         tools:layout="@layout/fragment_place_details">
-
-        <action
-            android:id="@+id/action_place_details_to_photos"
-            app:destination="@id/place_photos_fragment" />
 
         <argument
             android:name="placeId"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_place_details_to_photos"
+            app:destination="@id/nav_place_photos" />
+
     </fragment>
 
     <fragment
-        android:id="@+id/place_photos_fragment"
+        android:id="@+id/nav_place_photos"
         android:name="siarhei.luskanau.places2.placephotos.PlacePhotosFragment"
-        android:label="PlacePhotosFragment"
         tools:layout="@layout/fragment_place_photos">
 
         <argument
             android:name="placeId"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_place_details_to_place_list"
+            app:destination="@id/nav_place_list" />
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_github"
         android:name="siarhei.luskanau.places2.github.GithubFragment"
-        android:label="GithubFragment"
         tools:layout="@layout/fragment_github" />
 
 </navigation>
