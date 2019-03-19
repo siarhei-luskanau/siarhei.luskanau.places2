@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 
 android {
@@ -20,7 +20,9 @@ android {
     dataBinding {
         enabled = true
     }
-
+    androidExtensions {
+        experimental = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -41,16 +43,25 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':ui')
+    implementation project(':navigation')
+
     implementation appDependencies.kotlinStdlib
-    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     //unit test
-    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
-    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
     testImplementation appDependencies.kotlinTest
     testImplementation appDependencies.kotlinReflect
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:$spekVersion"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:$spekVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+    //android test
+    androidTestImplementation "androidx.test:core:$androidTestCoreVersion"
+    androidTestImplementation appDependencies.kotlinTest
+    androidTestImplementation appDependencies.kotlinReflect
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
