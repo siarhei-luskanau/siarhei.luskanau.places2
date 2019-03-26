@@ -3,7 +3,7 @@ package siarhei.luskanau.places2.ui.common
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
 
-abstract class BaseViewModel : ViewModel() {
+abstract class CancelableViewModel : ViewModel() {
 
     private val jobs = mutableListOf<Job>()
 

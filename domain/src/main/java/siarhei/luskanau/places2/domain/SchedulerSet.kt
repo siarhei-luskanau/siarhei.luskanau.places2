@@ -13,5 +13,10 @@ open class SchedulerSet(
                 ioCoroutineContext = Dispatchers.Unconfined,
                 uiCoroutineContext = Dispatchers.Unconfined
         )
+
+        fun default(): SchedulerSet = SchedulerSet(
+                ioCoroutineContext = Dispatchers.IO,
+                uiCoroutineContext = Dispatchers.Main
+        )
     }
 }

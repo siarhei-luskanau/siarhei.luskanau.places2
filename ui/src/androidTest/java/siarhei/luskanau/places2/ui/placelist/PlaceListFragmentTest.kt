@@ -10,32 +10,27 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import org.junit.Test
-import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.domain.Place
-import siarhei.luskanau.places2.ui.stub.StubAppNavigation
 
 class PlaceListFragmentTest {
 
-    lateinit var placeListViewModelProvider: () -> PlaceListViewModel
+    lateinit var presenterProvider: (Bundle?) -> PlaceListPresenter
 
     private val factory = object : FragmentFactory() {
-        private val appNavigation: AppNavigation = StubAppNavigation()
-        override fun instantiate(classLoader: ClassLoader, className: String, args: Bundle?): Fragment {
-            return PlaceListFragment(
-                    placeListViewModelProvider.invoke(),
-                    appNavigation
-            ).apply { arguments = args }
+        override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+            return PlaceListFragment(presenterProvider)
         }
     }
 
     @Test
     fun testErrorState() {
-        placeListViewModelProvider = {
-            object : PlaceListViewModel {
+        presenterProvider = {
+            object : PlaceListPresenter {
                 override val stateData = MutableLiveData<PlaceListState>()
                 override fun requestPlaceList() {
                     stateData.value = ErrorState(RuntimeException("Test Exception"))
                 }
+                override fun onPlaceClicked(placeId: String) {}
             }
         }
 
@@ -49,12 +44,13 @@ class PlaceListFragmentTest {
 
     @Test
     fun testEmptyState() {
-        placeListViewModelProvider = {
-            object : PlaceListViewModel {
+        presenterProvider = {
+            object : PlaceListPresenter {
                 override val stateData = MutableLiveData<PlaceListState>()
                 override fun requestPlaceList() {
                     stateData.value = EmptyState
                 }
+                override fun onPlaceClicked(placeId: String) {}
             }
         }
 
@@ -68,8 +64,8 @@ class PlaceListFragmentTest {
 
     @Test
     fun testNormalState() {
-        placeListViewModelProvider = {
-            object : PlaceListViewModel {
+        presenterProvider = {
+            object : PlaceListPresenter {
                 override val stateData = MutableLiveData<PlaceListState>()
                 override fun requestPlaceList() {
                     stateData.value = NormalState(listOf(
@@ -78,6 +74,7 @@ class PlaceListFragmentTest {
                             Place("3")
                     ))
                 }
+                override fun onPlaceClicked(placeId: String) {}
             }
         }
 

@@ -15,7 +15,7 @@ import siarhei.luskanau.places2.domain.SchedulerSet
 import siarhei.luskanau.places2.setArchTaskExecutor
 import kotlin.test.assertEquals
 
-object DefaultPlaceListViewModelTest : Spek({
+object PlaceListViewModelTest : Spek({
 
     setArchTaskExecutor()
 
@@ -24,13 +24,13 @@ object DefaultPlaceListViewModelTest : Spek({
     val mockPlaceService by memoized { mock<PlaceService>() }
 
     val defaultPlaceListViewModel by memoized {
-        DefaultPlaceListViewModel(
+        PlaceListViewModel(
                 testSchedulerSet,
                 mockPlaceService
         )
     }
 
-    describe("a DefaultPlaceListViewModelTest") {
+    describe("a PlaceListViewModelTest") {
 
         context("check ErrorState") {
             val observer = mock<Observer<PlaceListState>>()

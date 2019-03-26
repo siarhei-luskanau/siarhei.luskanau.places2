@@ -7,25 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.ui.R
+import siarhei.luskanau.places2.ui.common.BaseFragment
 import siarhei.luskanau.places2.ui.databinding.FragmentPlaceDetailsBinding
 
 @SuppressLint("ValidFragment")
 class PlaceDetailsFragment(
-    private val appNavigation: AppNavigation,
-    private val placeId: String
-) : Fragment() {
+    presenterProvider: (args: Bundle?) -> PlaceDetailsPresenter
+) : BaseFragment<PlaceDetailsPresenter>(presenterProvider) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentPlaceDetailsBinding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_place_details, container, false)
-
-        binding.placeDetails.setOnClickListener { appNavigation.goToPlacePhotos(placeId) }
-
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            DataBindingUtil.inflate<FragmentPlaceDetailsBinding>(
+                    inflater,
+                    R.layout.fragment_place_details,
+                    container,
+                    false
+            ).also { binding ->
+                binding.placeDetails.setOnClickListener { presenter.onPhotosClicked() }
+            }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

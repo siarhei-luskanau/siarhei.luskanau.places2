@@ -9,9 +9,9 @@ buildscript {
         // App dependencies
         kotlinVersion = '1.3.21'
         kotlinCoroutinesVersion = '1.1.1'
-        lifecycleVersion = '2.1.0-alpha03'
-        navigationVersion = '2.1.0-alpha01'
-        materialVersion = '1.1.0-alpha04'
+        lifecycleVersion = '2.1.0-alpha04'
+        navigationVersion = '2.1.0-alpha02'
+        materialVersion = '1.1.0-alpha05'
         constraintlayoutVersion = '2.0.0-alpha3'
         timberVersion = '4.7.1'
 
@@ -20,10 +20,10 @@ buildscript {
         spekVersion = '2.0.1'
 
         //test instrumentation
-        espressoVersion = '3.1.2-alpha01'
-        androidTestRunnerVersion = '1.1.2-alpha02'
-        androidTestCoreVersion = '1.1.1-alpha02'
-        fragmentTestingVersion = '1.1.0-alpha05'
+        espressoVersion = '3.2.0-alpha03'
+        androidTestRunnerVersion = '1.2.0-alpha03'
+        androidTestCoreVersion = '1.2.0-alpha03'
+        fragmentTestingVersion = '1.1.0-alpha06'
 
         appDependencies = [
                 kotlinStdlib : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",

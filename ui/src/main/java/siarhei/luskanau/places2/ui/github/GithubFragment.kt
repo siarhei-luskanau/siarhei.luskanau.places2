@@ -1,23 +1,27 @@
 package siarhei.luskanau.places2.ui.github
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import siarhei.luskanau.places2.ui.R
+import siarhei.luskanau.places2.ui.common.BaseFragment
 import siarhei.luskanau.places2.ui.databinding.FragmentGithubBinding
 
-class GithubFragment : Fragment() {
+@SuppressLint("ValidFragment")
+class GithubFragment(
+    presenterProvider: (args: Bundle?) -> GithubPresenter
+) : BaseFragment<GithubPresenter>(presenterProvider) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentGithubBinding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_github, container, false)
-
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            DataBindingUtil.inflate<FragmentGithubBinding>(
+                    inflater,
+                    R.layout.fragment_github, container,
+                    false
+            ).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

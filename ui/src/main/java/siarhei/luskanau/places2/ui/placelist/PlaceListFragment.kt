@@ -9,16 +9,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.ui.R
 import siarhei.luskanau.places2.ui.common.BaseFragment
 import siarhei.luskanau.places2.ui.databinding.FragmentPlaceListBinding
 
 @SuppressLint("ValidFragment", "SetTextI18n")
 class PlaceListFragment constructor(
-    private val viewModel: PlaceListViewModel,
-    private val appNavigation: AppNavigation
-) : BaseFragment() {
+    presenterProvider: (args: Bundle?) -> PlaceListPresenter
+) : BaseFragment<PlaceListPresenter>(presenterProvider) {
 
     private val errorStateView by lazy {
         TextView(requireContext()).apply { text = "errorStateView" }
@@ -32,25 +30,26 @@ class PlaceListFragment constructor(
 
     private lateinit var binding: FragmentPlaceListBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_place_list, container, false)
-
-        binding.placeList.setOnClickListener {
-            appNavigation.goToPlaceDetails("placeId")
-        }
-
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            DataBindingUtil.inflate<FragmentPlaceListBinding>(
+                    inflater,
+                    R.layout.fragment_place_list,
+                    container,
+                    false
+            ).also {
+                binding = it
+                binding.placeList.setOnClickListener { presenter.onPlaceClicked("placeId") }
+            }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as? AppCompatActivity)?.supportActionBar?.title = javaClass.simpleName
-        viewModel.requestPlaceList()
+        presenter.requestPlaceList()
     }
 
     override fun observeDataSources() {
         super.observeDataSources()
-        viewModel.stateData.observe(viewLifecycleOwner, Observer { changeState(it) })
+        presenter.stateData.observe(viewLifecycleOwner, Observer { changeState(it) })
     }
 
     private fun changeState(state: PlaceListState) {
