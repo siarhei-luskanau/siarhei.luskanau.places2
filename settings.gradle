@@ -1,5 +1,6 @@
-include ':app_dagger'
 include ':app'
+include ':app_dagger'
+include ':app_koin'
 include ':domain'
 include ':data'
 include ':ui'
