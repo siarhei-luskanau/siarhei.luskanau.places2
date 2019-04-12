@@ -3,7 +3,9 @@ package siarhei.luskanau.places2.koin.di
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentFactory
+import androidx.lifecycle.LifecycleOwner
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import siarhei.luskanau.places2.data.DefaultPlaceService
@@ -23,6 +25,7 @@ import siarhei.luskanau.places2.ui.placelist.PlaceListPresenter
 import siarhei.luskanau.places2.ui.placelist.PlaceListViewModel
 import siarhei.luskanau.places2.ui.placephotos.PlacePhotosFragment
 import siarhei.luskanau.places2.ui.placephotos.PlacePhotosPresenter
+import timber.log.Timber
 
 val appModule = module {
     single<AppNavigationArgs> { DefaultAppNavigationArgs() }
@@ -34,23 +37,24 @@ val activityModule = module {
     factory<AppNavigation> { (activity: FragmentActivity) -> DefaultAppNavigation(activity) }
     factory<FragmentFactory> { (activity: FragmentActivity) ->
         val appNavigation: AppNavigation = get { parametersOf(activity) }
-        KoinFragmentFactory(appNavigation)
+        KoinFragmentFactory(activity, appNavigation)
     }
 
     // PlaceList
-    factory { (appNavigation: AppNavigation) ->
+    factory { (lifecycleOwner: LifecycleOwner, appNavigation: AppNavigation) ->
         PlaceListFragment {
-            get { parametersOf(appNavigation) }
+            get { parametersOf(lifecycleOwner, appNavigation) }
         }
     }
-    factory<PlaceListPresenter> { (appNavigation: AppNavigation) ->
-        DefaultPlaceListPresenter(get(), appNavigation)
+    factory<PlaceListPresenter> { (lifecycleOwner: LifecycleOwner, appNavigation: AppNavigation) ->
+        DefaultPlaceListPresenter(lifecycleOwner.getViewModel(), appNavigation)
     }
 
     // PlaceDetails
-    factory { (appNavigation: AppNavigation) ->
+    factory { (_: LifecycleOwner, appNavigation: AppNavigation) ->
         PlaceDetailsFragment { args: Bundle? ->
-            val placeId = get<AppNavigationArgs>().getPlaceDetailsFragmentArgs(args)
+            val appNavigationArgs: AppNavigationArgs = get()
+            val placeId = appNavigationArgs.getPlaceDetailsFragmentArgs(args)
             get { parametersOf(appNavigation, placeId) }
         }
     }
@@ -59,9 +63,10 @@ val activityModule = module {
     }
 
     // PlacePhotos
-    factory { (appNavigation: AppNavigation) ->
+    factory { (_: LifecycleOwner, appNavigation: AppNavigation) ->
         PlacePhotosFragment { args: Bundle? ->
-            val placeId = get<AppNavigationArgs>().getPlacePhotosFragmentArgs(args)
+            val appNavigationArgs: AppNavigationArgs = get()
+            val placeId = appNavigationArgs.getPlacePhotosFragmentArgs(args)
             get { parametersOf(appNavigation, placeId) }
         }
     }
@@ -75,5 +80,8 @@ val activityModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { PlaceListViewModel(get(), get()) }
+    viewModel {
+        Timber.d("KoinViewModelFactory:${PlaceListViewModel::class.java.name}")
+        PlaceListViewModel(get(), get())
+    }
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 @PerActivity
-class DaggerFragmentInjectionFactory @Inject constructor(
+class DaggerFragmentFactory @Inject constructor(
     private val providers: Map<Class<out Fragment>, @JvmSuppressWildcards Provider<Fragment>>
 ) : FragmentFactory() {
 
@@ -16,7 +16,7 @@ class DaggerFragmentInjectionFactory @Inject constructor(
         classLoader: ClassLoader,
         className: String
     ): Fragment {
-        Timber.d("DaggerFragmentInjectionFactory.instantiate: $className")
+        Timber.d("DaggerFragmentFactory.instantiate: $className")
         try {
             val fragmentClass = loadFragmentClass(classLoader, className)
             val fragment: Fragment = providers[fragmentClass]?.get()

@@ -1,6 +1,9 @@
 package siarhei.luskanau.places2.dagger.di.fragment
 
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
 import siarhei.luskanau.places2.domain.AppNavigation
@@ -20,12 +23,15 @@ class FragmentBuilderModule {
 
     @Provides
     fun providePlaceListFragment(
-        placeListViewModel: PlaceListViewModel,
+        activity: FragmentActivity,
+        viewModelFactory: ViewModelProvider.Factory,
         appNavigation: AppNavigation
     ) = PlaceListFragment {
+        val placeListViewModel =
+            ViewModelProviders.of(activity, viewModelFactory).get(PlaceListViewModel::class.java)
         DefaultPlaceListPresenter(
-                placeListViewModel,
-                appNavigation
+            placeListViewModel,
+            appNavigation
         )
     }
 
@@ -35,8 +41,8 @@ class FragmentBuilderModule {
         appNavigationArgs: AppNavigationArgs
     ) = PlaceDetailsFragment { args: Bundle? ->
         PlaceDetailsPresenter(
-                appNavigation,
-                appNavigationArgs.getPlaceDetailsFragmentArgs(args)
+            appNavigation,
+            appNavigationArgs.getPlaceDetailsFragmentArgs(args)
         )
     }
 
@@ -46,14 +52,14 @@ class FragmentBuilderModule {
         appNavigationArgs: AppNavigationArgs
     ) = PlacePhotosFragment { args: Bundle? ->
         PlacePhotosPresenter(
-                appNavigation,
-                appNavigationArgs.getPlacePhotosFragmentArgs(args)
+            appNavigation,
+            appNavigationArgs.getPlacePhotosFragmentArgs(args)
         )
     }
 
     @Provides
     fun provideGithubFragment() =
-            GithubFragment {
-                GithubPresenter()
-            }
+        GithubFragment {
+            GithubPresenter()
+        }
 }
