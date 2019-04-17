@@ -24,10 +24,6 @@ android {
     androidExtensions {
         experimental = true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     testOptions {
         junitPlatform {
@@ -55,7 +51,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // koin
-    implementation "org.koin:koin-androidx-viewmodel:2.0.0-rc-2"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+
+    //Development
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 
     //unit test
     testImplementation appDependencies.kotlinTest

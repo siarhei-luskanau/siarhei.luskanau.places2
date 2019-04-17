@@ -23,10 +23,6 @@ android {
     androidExtensions {
         experimental = true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     testOptions {
         junitPlatform {
@@ -52,6 +48,9 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    //Development
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 
     //unit test
     testImplementation appDependencies.kotlinTest

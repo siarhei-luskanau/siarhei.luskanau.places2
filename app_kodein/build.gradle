@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     dataBinding {
@@ -22,10 +23,6 @@ android {
     }
     androidExtensions {
         experimental = true
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     testOptions {
@@ -54,8 +51,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
-    implementation "org.kodein.di:kodein-di-generic-jvm:6.1.0"
-    implementation "org.kodein.di:kodein-di-framework-android-x:6.1.0"
+    implementation "org.kodein.di:kodein-di-generic-jvm:$kodeinVersion"
+    implementation "org.kodein.di:kodein-di-framework-android-x:$kodeinVersion"
+
+    //Development
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 
     //unit test
     testImplementation appDependencies.kotlinTest

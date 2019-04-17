@@ -24,10 +24,6 @@ android {
     androidExtensions {
         experimental = true
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     testOptions {
         junitPlatform {
@@ -55,11 +51,14 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // dagger
-    kapt "com.google.dagger:dagger-compiler:2.22.1"
-    kapt "com.google.dagger:dagger-android-processor:2.22.1"
-    implementation "com.google.dagger:dagger:2.22.1"
-    implementation "com.google.dagger:dagger-android:2.22.1"
-    implementation "com.google.dagger:dagger-android-support:2.22.1"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    //Development
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
 
     //unit test
     testImplementation appDependencies.kotlinTest

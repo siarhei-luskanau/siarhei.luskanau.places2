@@ -21,11 +21,6 @@ android {
         experimental = true
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     testOptions {
         junitPlatform {
             filters {
@@ -57,7 +52,7 @@ dependencies {
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 
     //android test
-    kaptAndroidTest 'com.android.databinding:compiler:3.1.4'
+    kaptAndroidTest "androidx.databinding:databinding-compiler:$androidGragleBuildVersion"
     debugImplementation "androidx.fragment:fragment-testing:$fragmentTestingVersion"
     debugImplementation "androidx.test:core:$androidTestCoreVersion"
     androidTestImplementation appDependencies.kotlinTest

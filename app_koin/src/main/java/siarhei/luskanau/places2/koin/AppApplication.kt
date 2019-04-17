@@ -25,9 +25,11 @@ class AppApplication : Application() {
             androidContext(this@AppApplication)
             androidFileProperties()
             modules(
+                listOf(
                     appModule,
                     activityModule,
                     viewModelModule
+                )
             )
         }
     }
