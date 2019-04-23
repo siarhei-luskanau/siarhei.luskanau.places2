@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        resValue "string", "places_api_key", "\"${getSystemEnvOrLocalPropsValue("places_api_key")}\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    implementation appDependencies.kotlinStdlib
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
+    implementation "com.google.android.libraries.places:places:2.1.0"
+}
+
+def getSystemEnvOrLocalPropsValue(key) {
+    def value = System.getenv(key)
+    if (value == null) {
+        File localPropsFile = project.rootProject.file('local.properties')
+        if (localPropsFile.exists() && localPropsFile.canRead()) {
+            Properties properties = new Properties()
+            properties.load(localPropsFile.newDataInputStream())
+            value = properties.getProperty(key)
+        }
+    }
+    return value
+}

@@ -13,7 +13,7 @@ import org.kodein.di.generic.factory
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
-import siarhei.luskanau.places2.data.StubPlaceService
+import siarhei.luskanau.places2.data.android.places.AndroidPlaceService
 import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.domain.AppNavigationArgs
 import siarhei.luskanau.places2.domain.PlaceService
@@ -36,7 +36,7 @@ val appModule = Kodein.Module(name = "appModule") {
     bind() from singleton { SchedulerSet.default() }
     bind<ViewModelProvider.Factory>() with singleton { KodeinViewModelFactory(dkodein) }
     bind<AppNavigationArgs>() with singleton { DefaultAppNavigationArgs() }
-    bind<PlaceService>() with singleton { StubPlaceService() }
+    bind<PlaceService>() with singleton { AndroidPlaceService(instance()) }
 }
 
 val activityModule = Kodein.Module(name = "activityModule") {

@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
-import siarhei.luskanau.places2.data.StubPlaceService
+import siarhei.luskanau.places2.data.android.places.AndroidPlaceService
 import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.domain.AppNavigationArgs
 import siarhei.luskanau.places2.domain.PlaceService
@@ -31,7 +31,7 @@ import timber.log.Timber
 val appModule = module {
     single<AppNavigationArgs> { DefaultAppNavigationArgs() }
     single { SchedulerSet.default() }
-    single<PlaceService> { StubPlaceService() }
+    single<PlaceService> { AndroidPlaceService(get()) }
 }
 
 val activityModule = module {

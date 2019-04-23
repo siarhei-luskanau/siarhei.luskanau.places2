@@ -7,7 +7,7 @@ import javax.inject.Singleton
 import siarhei.luskanau.places2.dagger.AppApplication
 import siarhei.luskanau.places2.dagger.di.viewmodel.ViewModelBinderModule
 import siarhei.luskanau.places2.dagger.di.viewmodel.ViewModelBuilderModule
-import siarhei.luskanau.places2.data.StubPlaceService
+import siarhei.luskanau.places2.data.android.places.AndroidPlaceService
 import siarhei.luskanau.places2.domain.AppNavigationArgs
 import siarhei.luskanau.places2.domain.PlaceService
 import siarhei.luskanau.places2.domain.SchedulerSet
@@ -36,5 +36,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providePlaceService(): PlaceService = StubPlaceService()
+    fun providePlaceService(
+        context: Context
+    ): PlaceService = AndroidPlaceService(
+        context
+    )
 }

@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
-import siarhei.luskanau.places2.data.StubPlaceService
+import siarhei.luskanau.places2.data.android.places.AndroidPlaceService
 import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.domain.AppNavigationArgs
 import siarhei.luskanau.places2.domain.PlaceService
@@ -28,7 +28,7 @@ class AppFragmentFactory(private val activity: FragmentActivity) : FragmentFacto
     private val appNavigation: AppNavigation by lazy { DefaultAppNavigation(activity) }
     private val appNavigationArgs: AppNavigationArgs by lazy { DefaultAppNavigationArgs() }
     private val schedulerSet: SchedulerSet by lazy { SchedulerSet.default() }
-    private val placeService: PlaceService by lazy { StubPlaceService() }
+    private val placeService: PlaceService by lazy { AndroidPlaceService(activity.applicationContext) }
     private val viewModelFactory: ViewModelProvider.Factory by lazy {
         AppViewModelFactory(
             schedulerSet,
