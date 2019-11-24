@@ -2,8 +2,8 @@ package siarhei.luskanau.places2.dagger.di
 
 import dagger.BindsInstance
 import dagger.Component
-import siarhei.luskanau.places2.dagger.AppApplication
 import javax.inject.Singleton
+import siarhei.luskanau.places2.dagger.AppApplication
 
 @Component(modules = [
     AppModule::class,

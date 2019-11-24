@@ -3,8 +3,8 @@ package siarhei.luskanau.places2
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class AppAndroidTest {
 

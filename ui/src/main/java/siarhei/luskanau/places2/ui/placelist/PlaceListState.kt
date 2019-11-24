@@ -9,3 +9,5 @@ object EmptyState : PlaceListState()
 data class NormalState(val placeList: List<Place>) : PlaceListState()
 
 data class ErrorState(val error: Throwable) : PlaceListState()
+
+object PermissionState : PlaceListState()

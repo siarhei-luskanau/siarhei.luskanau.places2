@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import siarhei.luskanau.places2.dagger.di.common.FragmentKey
 import siarhei.luskanau.places2.ui.github.GithubFragment
+import siarhei.luskanau.places2.ui.permissions.PermissionsFragment
 import siarhei.luskanau.places2.ui.placedetails.PlaceDetailsFragment
 import siarhei.luskanau.places2.ui.placelist.PlaceListFragment
 import siarhei.luskanau.places2.ui.placephotos.PlacePhotosFragment
@@ -16,6 +17,11 @@ abstract class FragmentBindingModule {
 
     @Binds
     abstract fun bindFragmentFactory(factory: DaggerFragmentFactory): FragmentFactory
+
+    @Binds
+    @IntoMap
+    @FragmentKey(PermissionsFragment::class)
+    abstract fun bindPermissionsFragment(fragment: PermissionsFragment): Fragment
 
     @Binds
     @IntoMap

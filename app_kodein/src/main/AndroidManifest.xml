@@ -5,14 +5,14 @@
     package="siarhei.luskanau.places2.kodein">
 
     <application
-        android:name=".AppApplication"
+        android:name="siarhei.luskanau.places2.kodein.AppApplication"
         android:icon="@drawable/ic_android"
-        android:label="Places2koin"
+        android:label="Places2kodein"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
 
         <activity
-            android:name=".AppActivity"
+            android:name="siarhei.luskanau.places2.kodein.AppActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

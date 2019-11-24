@@ -2,10 +2,10 @@ package siarhei.luskanau.places2.dagger.di.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import siarhei.luskanau.places2.dagger.di.common.PerActivity
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
+import siarhei.luskanau.places2.dagger.di.common.PerActivity
+import timber.log.Timber
 
 @PerActivity
 class DaggerFragmentFactory @Inject constructor(
@@ -15,15 +15,14 @@ class DaggerFragmentFactory @Inject constructor(
     override fun instantiate(
         classLoader: ClassLoader,
         className: String
-    ): Fragment {
-        Timber.d("DaggerFragmentFactory.instantiate: $className")
+    ): Fragment =
         try {
-            val fragmentClass = loadFragmentClass(classLoader, className)
-            val fragment: Fragment = providers[fragmentClass]?.get()
+            Timber.d("DaggerFragmentFactory.instantiate: $className")
+            loadFragmentClass(classLoader, className).let { fragmentClass ->
+                providers[fragmentClass]?.get()
                     ?: super.instantiate(classLoader, className)
-            return fragment
-        } catch (e: Exception) {
+            }
+        } catch (e: Throwable) {
             throw RuntimeException(e)
         }
-    }
 }

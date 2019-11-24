@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
-import siarhei.luskanau.places2.data.DefaultPlaceService
+import siarhei.luskanau.places2.data.StubPlaceService
 import siarhei.luskanau.places2.domain.AppNavigation
 import siarhei.luskanau.places2.domain.AppNavigationArgs
 import siarhei.luskanau.places2.domain.PlaceService
@@ -16,7 +16,8 @@ import siarhei.luskanau.places2.domain.SchedulerSet
 import siarhei.luskanau.places2.navigation.DefaultAppNavigation
 import siarhei.luskanau.places2.navigation.DefaultAppNavigationArgs
 import siarhei.luskanau.places2.ui.github.GithubFragment
-import siarhei.luskanau.places2.ui.github.GithubPresenter
+import siarhei.luskanau.places2.ui.permissions.PermissionsFragment
+import siarhei.luskanau.places2.ui.permissions.PermissionsPresenter
 import siarhei.luskanau.places2.ui.placedetails.PlaceDetailsFragment
 import siarhei.luskanau.places2.ui.placedetails.PlaceDetailsPresenter
 import siarhei.luskanau.places2.ui.placelist.DefaultPlaceListPresenter
@@ -30,7 +31,7 @@ import timber.log.Timber
 val appModule = module {
     single<AppNavigationArgs> { DefaultAppNavigationArgs() }
     single { SchedulerSet.default() }
-    single<PlaceService> { DefaultPlaceService() }
+    single<PlaceService> { StubPlaceService() }
 }
 
 val activityModule = module {
@@ -38,6 +39,14 @@ val activityModule = module {
     factory<FragmentFactory> { (activity: FragmentActivity) ->
         val appNavigation: AppNavigation = get { parametersOf(activity) }
         KoinFragmentFactory(activity, appNavigation)
+    }
+
+    // Permissions
+    factory { (_: LifecycleOwner, appNavigation: AppNavigation) ->
+        PermissionsFragment { get { parametersOf(appNavigation) } }
+    }
+    factory { (appNavigation: AppNavigation) ->
+        PermissionsPresenter(appNavigation)
     }
 
     // PlaceList
@@ -76,7 +85,7 @@ val activityModule = module {
 
     // Github
     factory { GithubFragment { get() } }
-    factory { GithubPresenter() }
+    factory { Any() }
 }
 
 val viewModelModule = module {

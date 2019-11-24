@@ -3,8 +3,8 @@ package siarhei.luskanau.places2.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 class DataAndroidTest {
 
@@ -12,7 +12,7 @@ class DataAndroidTest {
     fun checkApplicationId() {
         assertEquals(
                 expected = "siarhei.luskanau.places2.data",
-                actual = BuildConfig.APPLICATION_ID
+                actual = BuildConfig.LIBRARY_PACKAGE_NAME
         )
     }
 

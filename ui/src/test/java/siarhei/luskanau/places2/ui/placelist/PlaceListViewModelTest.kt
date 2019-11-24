@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import kotlin.test.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -13,7 +14,6 @@ import siarhei.luskanau.places2.domain.Place
 import siarhei.luskanau.places2.domain.PlaceService
 import siarhei.luskanau.places2.domain.SchedulerSet
 import siarhei.luskanau.places2.setArchTaskExecutor
-import kotlin.test.assertEquals
 
 object PlaceListViewModelTest : Spek({
 

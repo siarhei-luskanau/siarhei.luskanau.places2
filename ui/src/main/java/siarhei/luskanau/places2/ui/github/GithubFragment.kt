@@ -13,8 +13,8 @@ import siarhei.luskanau.places2.ui.databinding.FragmentGithubBinding
 
 @SuppressLint("ValidFragment")
 class GithubFragment(
-    presenterProvider: (args: Bundle?) -> GithubPresenter
-) : BaseFragment<GithubPresenter>(presenterProvider) {
+    presenterProvider: (args: Bundle?) -> Any
+) : BaseFragment<Any>(presenterProvider) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             DataBindingUtil.inflate<FragmentGithubBinding>(

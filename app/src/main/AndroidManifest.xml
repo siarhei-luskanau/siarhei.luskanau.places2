@@ -5,7 +5,7 @@
     package="siarhei.luskanau.places2">
 
     <application
-        android:name=".AppApplication"
+        android:name="siarhei.luskanau.places2.AppApplication"
         android:icon="@drawable/ic_android"
         android:label="Places2"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"

@@ -14,6 +14,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     dataBinding {
         enabled = true
     }
@@ -41,6 +46,7 @@ dependencies {
     implementation appDependencies.kotlinStdlib
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayoutVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
@@ -53,7 +59,7 @@ dependencies {
 
     //android test
     kaptAndroidTest "androidx.databinding:databinding-compiler:$androidGragleBuildVersion"
-    debugImplementation "androidx.fragment:fragment-testing:$fragmentTestingVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
     debugImplementation "androidx.test:core:$androidTestCoreVersion"
     androidTestImplementation appDependencies.kotlinTest
     androidTestImplementation appDependencies.kotlinReflect

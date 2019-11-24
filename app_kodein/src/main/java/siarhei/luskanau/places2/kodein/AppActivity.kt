@@ -10,7 +10,7 @@ class AppActivity : NavigationActivity(), KodeinAware {
 
     override val kodein by kodein()
 
-    val fragmentFactory: FragmentFactory by instance(arg = this)
+    private val fragmentFactory: FragmentFactory by instance(arg = this)
 
     override fun getAppFragmentFactory(): FragmentFactory =
         fragmentFactory

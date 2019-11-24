@@ -1,6 +1,6 @@
 package siarhei.luskanau.places2.koin
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -11,7 +11,7 @@ import siarhei.luskanau.places2.koin.di.appModule
 import siarhei.luskanau.places2.koin.di.viewModelModule
 import timber.log.Timber
 
-class AppApplication : Application() {
+class AppApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

@@ -1,37 +1,38 @@
 buildscript {
     ext {
         // Sdk and tools
-        buildToolsVersion = "29.0.0"
+        buildToolsVersion = "29.0.2"
         compileSdkVersion = 29
         minSdkVersion = 19
         targetSdkVersion = 29
-        androidGragleBuildVersion = '3.4.1'
+        androidGragleBuildVersion = '3.6.0-beta04'
 
         // DI
-        daggerVersion = '2.23.2'
-        kodeinVersion = '6.3.2'
+        daggerVersion = '2.25.2'
+        kodeinVersion = '6.4.1'
         koinVersion = '2.0.1'
 
         // App dependencies
-        kotlinVersion = '1.3.40'
-        kotlinCoroutinesVersion = '1.2.2'
-        lifecycleVersion = '2.2.0-alpha02'
-        navigationVersion = '2.1.0-alpha06'
-        materialVersion = '1.1.0-alpha07'
-        constraintlayoutVersion = '2.0.0-beta2'
+        kotlinVersion = '1.3.60'
+        kotlinCoroutinesVersion = '1.3.2'
+        lifecycleVersion = '2.2.0-rc02'
+        navigationVersion = '2.2.0-rc02'
+        materialVersion = '1.2.0-alpha02'
+        swiperefreshlayoutVersion = '1.1.0-alpha03'
+        fragmentVersion = '1.2.0-rc02'
+        constraintlayoutVersion = '2.0.0-beta3'
         timberVersion = '4.7.1'
 
         //Development
-        leakCanaryVersion = '2.0-alpha-2'
+        leakCanaryVersion = '2.0-beta-4'
 
         //Testing
-        mockitoKotlinVersion = '2.1.0'
-        spekVersion = '2.0.2'
+        mockitoKotlinVersion = '2.2.0'
+        spekVersion = '2.0.8'
 
         //test instrumentation
         espressoVersion = '3.2.0-alpha03'
-        androidTestCoreVersion = '1.2.1-alpha01'
-        fragmentTestingVersion = '1.2.0-alpha01'
+        androidTestCoreVersion = '1.2.1-alpha02'
 
         appDependencies = [
                 kotlinStdlib : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion",
@@ -49,7 +50,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$androidGragleBuildVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.4.2.1"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.5.1.0"
     }
 }
 
@@ -60,6 +61,10 @@ allprojects {
     }
 
     apply from: "$rootDir/ktlint.gradle"
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
 
 task clean(type: Delete) {

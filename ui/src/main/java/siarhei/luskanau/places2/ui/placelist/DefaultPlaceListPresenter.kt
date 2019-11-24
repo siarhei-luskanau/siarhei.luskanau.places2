@@ -8,7 +8,7 @@ class DefaultPlaceListPresenter(
     private val appNavigation: AppNavigation
 ) : PlaceListPresenter {
 
-    override val stateData: LiveData<PlaceListState> = placeListViewModel.stateData
+    override fun getStateData(): LiveData<PlaceListState> = placeListViewModel.stateData
 
     override fun requestPlaceList() = placeListViewModel.requestPlaceList()
 

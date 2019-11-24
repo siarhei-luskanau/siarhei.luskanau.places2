@@ -5,14 +5,14 @@
     package="siarhei.luskanau.places2.dagger">
 
     <application
-        android:name=".AppApplication"
+        android:name="siarhei.luskanau.places2.dagger.AppApplication"
         android:icon="@drawable/ic_android"
         android:label="Places2dagger"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
 
         <activity
-            android:name=".AppActivity"
+            android:name="siarhei.luskanau.places2.dagger.AppActivity"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,6 +11,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import org.junit.Test
 import siarhei.luskanau.places2.domain.Place
+import siarhei.luskanau.places2.ui.R
 
 class PlaceListFragmentTest {
 
@@ -26,10 +27,12 @@ class PlaceListFragmentTest {
     fun testErrorState() {
         presenterProvider = {
             object : PlaceListPresenter {
-                override val stateData = MutableLiveData<PlaceListState>()
+                val innerStateData = MutableLiveData<PlaceListState>()
+                override fun getStateData() = innerStateData
                 override fun requestPlaceList() {
-                    stateData.value = ErrorState(RuntimeException("Test Exception"))
+                    innerStateData.value = ErrorState(RuntimeException("Test Exception"))
                 }
+
                 override fun onPlaceClicked(placeId: String) {}
             }
         }
@@ -37,19 +40,26 @@ class PlaceListFragmentTest {
         val scenario = launchFragmentInContainer<PlaceListFragment>(factory = factory)
         scenario.moveToState(Lifecycle.State.RESUMED)
 
-        Espresso.onView(ViewMatchers.withText("errorStateView")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("emptyStateView")).check(ViewAssertions.doesNotExist())
-        Espresso.onView(ViewMatchers.withText("normalStateView")).check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("errorStateView"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("emptyStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withId(R.id.placeListRecyclerView))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("permissionStateView"))
+            .check(ViewAssertions.doesNotExist())
     }
 
     @Test
     fun testEmptyState() {
         presenterProvider = {
             object : PlaceListPresenter {
-                override val stateData = MutableLiveData<PlaceListState>()
+                val innerStateData = MutableLiveData<PlaceListState>()
+                override fun getStateData() = innerStateData
                 override fun requestPlaceList() {
-                    stateData.value = EmptyState
+                    innerStateData.value = EmptyState
                 }
+
                 override fun onPlaceClicked(placeId: String) {}
             }
         }
@@ -57,23 +67,32 @@ class PlaceListFragmentTest {
         val scenario = launchFragmentInContainer<PlaceListFragment>(factory = factory)
         scenario.moveToState(Lifecycle.State.RESUMED)
 
-        Espresso.onView(ViewMatchers.withText("emptyStateView")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("errorStateView")).check(ViewAssertions.doesNotExist())
-        Espresso.onView(ViewMatchers.withText("normalStateView")).check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("emptyStateView"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("errorStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withId(R.id.placeListRecyclerView))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("permissionStateView"))
+            .check(ViewAssertions.doesNotExist())
     }
 
     @Test
     fun testNormalState() {
         presenterProvider = {
             object : PlaceListPresenter {
-                override val stateData = MutableLiveData<PlaceListState>()
+                val innerStateData = MutableLiveData<PlaceListState>()
+                override fun getStateData() = innerStateData
                 override fun requestPlaceList() {
-                    stateData.value = NormalState(listOf(
+                    innerStateData.value = NormalState(
+                        listOf(
                             Place("1"),
                             Place("2"),
                             Place("3")
-                    ))
+                        )
+                    )
                 }
+
                 override fun onPlaceClicked(placeId: String) {}
             }
         }
@@ -81,8 +100,40 @@ class PlaceListFragmentTest {
         val scenario = launchFragmentInContainer<PlaceListFragment>(factory = factory)
         scenario.moveToState(Lifecycle.State.RESUMED)
 
-        Espresso.onView(ViewMatchers.withText("normalStateView")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withText("errorStateView")).check(ViewAssertions.doesNotExist())
-        Espresso.onView(ViewMatchers.withText("emptyStateView")).check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withId(R.id.placeListRecyclerView))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("errorStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("emptyStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("permissionStateView"))
+            .check(ViewAssertions.doesNotExist())
+    }
+
+    @Test
+    fun testPermissionState() {
+        presenterProvider = {
+            object : PlaceListPresenter {
+                val innerStateData = MutableLiveData<PlaceListState>()
+                override fun getStateData() = innerStateData
+                override fun requestPlaceList() {
+                    innerStateData.value = PermissionState
+                }
+
+                override fun onPlaceClicked(placeId: String) {}
+            }
+        }
+
+        val scenario = launchFragmentInContainer<PlaceListFragment>(factory = factory)
+        scenario.moveToState(Lifecycle.State.RESUMED)
+
+        Espresso.onView(ViewMatchers.withText("permissionStateView"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("errorStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withText("emptyStateView"))
+            .check(ViewAssertions.doesNotExist())
+        Espresso.onView(ViewMatchers.withId(R.id.placeListRecyclerView))
+            .check(ViewAssertions.doesNotExist())
     }
 }

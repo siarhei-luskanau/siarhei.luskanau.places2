@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/place_list"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
@@ -37,16 +37,7 @@
                 android:id="@+id/containerContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
-
-
-                <TextView
-                    android:id="@+id/place_list_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
-
-            </FrameLayout>
+                android:animateLayoutChanges="true" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

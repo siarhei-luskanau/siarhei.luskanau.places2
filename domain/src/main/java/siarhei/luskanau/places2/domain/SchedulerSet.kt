@@ -1,7 +1,7 @@
 package siarhei.luskanau.places2.domain
 
-import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
 
 open class SchedulerSet(
     open val ioCoroutineContext: CoroutineContext,

@@ -2,14 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/nav_place_list">
+    app:startDestination="@+id/nav_permissionsFragment">
+
+    <fragment
+        android:id="@+id/nav_permissionsFragment"
+        android:name="siarhei.luskanau.places2.ui.permissions.PermissionsFragment"
+        tools:layout="@layout/fragment_permissions">
+        <action
+            android:id="@+id/action_permissions_to_place_list"
+            app:destination="@id/nav_place_list" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_place_list"
         android:name="siarhei.luskanau.places2.ui.placelist.PlaceListFragment"
         tools:layout="@layout/fragment_place_list">
-
-
         <action
             android:id="@+id/action_place_list_to_details"
             app:destination="@id/nav_place_details" />
@@ -20,26 +27,21 @@
         android:id="@+id/nav_place_details"
         android:name="siarhei.luskanau.places2.ui.placedetails.PlaceDetailsFragment"
         tools:layout="@layout/fragment_place_details">
-
         <argument
             android:name="placeId"
             app:argType="string" />
-
         <action
             android:id="@+id/action_place_details_to_photos"
             app:destination="@id/nav_place_photos" />
-
     </fragment>
 
     <fragment
         android:id="@+id/nav_place_photos"
         android:name="siarhei.luskanau.places2.ui.placephotos.PlacePhotosFragment"
         tools:layout="@layout/fragment_place_photos">
-
         <argument
             android:name="placeId"
             app:argType="string" />
-
         <action
             android:id="@+id/action_place_details_to_place_list"
             app:destination="@id/nav_place_list" />

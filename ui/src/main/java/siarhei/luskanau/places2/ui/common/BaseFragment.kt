@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<T : BasePresenter>(
+abstract class BaseFragment<T>(
     private val presenterProvider: (arguments: Bundle?) -> T
 ) : Fragment() {
 
